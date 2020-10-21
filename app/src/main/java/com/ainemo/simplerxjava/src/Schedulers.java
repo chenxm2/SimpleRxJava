@@ -16,7 +16,6 @@ public class Schedulers {
             ioScheuler = new Scheduler(new SubThreadExecutor());
         }
 
-
         return ioScheuler;
     }
 
@@ -25,18 +24,14 @@ public class Schedulers {
             mainScheuler = new Scheduler(new MainThreadExecutor());
         }
 
-
         return mainScheuler;
     }
-
-
 
     private static class SubThreadExecutor implements Executor {
         private HandlerThread handlerThread;
         private Handler handler;
 
-
-        private  SubThreadExecutor() {
+        private SubThreadExecutor() {
             handlerThread = new HandlerThread("SubThread");
             handlerThread.start();
             handler = new Handler(handlerThread.getLooper());
@@ -56,7 +51,6 @@ public class Schedulers {
 
     private static class MainThreadExecutor implements Executor {
         private Handler handler;
-
 
         private  MainThreadExecutor() {
             handler = new Handler(Looper.getMainLooper());

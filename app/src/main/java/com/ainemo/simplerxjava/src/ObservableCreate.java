@@ -1,7 +1,7 @@
 package com.ainemo.simplerxjava.src;
 public final class ObservableCreate<T> extends Observable<T> {
-    private final ObservableOnSubscribe<T> source;
 
+    private final ObservableOnSubscribe<T> source;
     public ObservableCreate(ObservableOnSubscribe<T> source) {
         this.source = source;
     }
@@ -14,7 +14,6 @@ public final class ObservableCreate<T> extends Observable<T> {
     }
 
     static final class CreateEmitter<T> implements Emitter<T>{
-
 
         final Observer<? super T> observer;
 

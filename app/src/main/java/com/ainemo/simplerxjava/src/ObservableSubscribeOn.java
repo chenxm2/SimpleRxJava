@@ -1,9 +1,9 @@
 package com.ainemo.simplerxjava.src;
 
-
 public class ObservableSubscribeOn<T> extends Observable<T> {
     private Scheduler scheduler;
     private Observable<T> source;
+
     public ObservableSubscribeOn(Observable<T> source, Scheduler scheduler) {
         this.source = source;
         this.scheduler = scheduler;
@@ -13,7 +13,6 @@ public class ObservableSubscribeOn<T> extends Observable<T> {
     protected void subscribeActual(final Observer<? super T> observer) {
         RxLogger.logger.info("ObservableSubscribeOn subscribeActual ");
         final SubscribeOnObserver<T> parent = new SubscribeOnObserver<T>(observer, scheduler);
-
         scheduler.createWorker().schedule(new Runnable() {
             @Override
             public void run() {

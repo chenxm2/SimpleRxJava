@@ -4,12 +4,10 @@ public class ObservableObserveOn<T> extends Observable<T> {
     final Scheduler scheduler;
     private Observable<T> source;
 
-
     public ObservableObserveOn(Observable<T> observable, Scheduler scheduler) {
         this.scheduler = scheduler;
         this.source = observable;
     }
-
 
     @Override
     protected void subscribeActual(Observer<? super T> observer) {
@@ -36,7 +34,6 @@ public class ObservableObserveOn<T> extends Observable<T> {
         @Override
         public void onError(Throwable t) {
             downstream.onError(t);
-
         }
 
         @Override
