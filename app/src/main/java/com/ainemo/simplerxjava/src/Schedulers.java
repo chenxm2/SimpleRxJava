@@ -39,12 +39,10 @@ public class Schedulers {
 
         @Override
         public void execute(Runnable r) {
-            final Logger logger =  Logger.getLogger("simpleRxjava");
-
             if (handler != null) {
                 handler.post(r);
             } else  {
-                logger.info("main execute null");
+                RxLogger.logger.info("main execute null");
             }
         }
     }
