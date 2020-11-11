@@ -1,6 +1,6 @@
 package com.ainemo.simplerxjava.src;
 
-public abstract class Observable<T> {
+public abstract class Observable<T> implements ObservableSource<T> {
 
     protected Observable() {
     }
@@ -13,14 +13,18 @@ public abstract class Observable<T> {
         return new ObservableSubscribeOn<T>(this, scheduler);
     }
 
+    @Override
     public final void subscribe(Observer<? super T> observer) {
         subscribeActual(observer);
     }
 
     protected abstract void subscribeActual(Observer<? super T> observer);
 
-
     public final Observable<? extends T> observerOn(Scheduler scheduler) {
         return new ObservableObserveOn<T>(this, scheduler);
+    }
+
+    public final <R> Observable<R> map(Function<? super T, ? extends R> mapper) {
+        return new ObservableMap<T, R>(this, mapper);
     }
 }

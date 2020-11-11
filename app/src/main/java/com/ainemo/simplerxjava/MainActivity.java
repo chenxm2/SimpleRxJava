@@ -1,10 +1,10 @@
 package com.ainemo.simplerxjava;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ainemo.simplerxjava.src.Emitter;
 import com.ainemo.simplerxjava.src.Observable;
@@ -36,14 +36,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleNoChangeThreadButtonClicked() {
-        Observable.create(new ObservableOnSubscribe<String >() {
+        Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull Emitter<String> emitter) {
                 RxLogger.logger.info("subscribe thread = " + Thread.currentThread().getName());
                 emitter.onNext("No Change Thread");
-
             }
-        }).subscribe(new Observer<String>() {
+        }).map(value -> "[[[" + value + "]]]").subscribe(new Observer<String>() {
             @Override
             public void onCompleted() {
 
