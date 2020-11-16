@@ -27,4 +27,8 @@ public abstract class Observable<T> {
     public final <R> Observable<R> map(Function<? super T, ? extends R> mapper) {
         return new ObservableMap<T,R>( this,mapper);
     }
+
+    public final Observable<T> filter(Predicate<? super T> predicate) {
+        return new ObservableFilter<T>(this, predicate);
+    }
 }

@@ -11,6 +11,7 @@ import com.ainemo.simplerxjava.src.Function;
 import com.ainemo.simplerxjava.src.Observable;
 import com.ainemo.simplerxjava.src.ObservableOnSubscribe;
 import com.ainemo.simplerxjava.src.Observer;
+import com.ainemo.simplerxjava.src.Predicate;
 import com.ainemo.simplerxjava.src.RxLogger;
 import com.ainemo.simplerxjava.src.Schedulers;
 
@@ -124,6 +125,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void rxClickFilter(View view) {
+        Observable.create(new ObservableOnSubscribe<String>() {
+
+            @Override
+            public void subscribe(@NonNull Emitter<String> emitter) {
+                emitter.onNext("测试");
+                emitter.onNext("错误");
+            }
+        }).filter(new Predicate<String>() {
+
+            @Override
+            public boolean test(@NonNull String o) throws Exception {
+                RxLogger.logger.info("final test = " + o);
+                return !"错误".equals(o);
+            }
+        }).subscribe(new Observer<String>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onNext(String var) {
+                RxLogger.logger.info("final onNext = " + var);
+            }
+        });
     }
 
     public void rxClickFlatMap(View view) {
