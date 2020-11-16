@@ -23,4 +23,8 @@ public abstract class Observable<T> {
     public final Observable<? extends T> observerOn(Scheduler scheduler) {
         return new ObservableObserveOn<T>(this, scheduler);
     }
+
+    public final <R> Observable<R> map(Function<? super T, ? extends R> mapper) {
+        return new ObservableMap<T,R>( this,mapper);
+    }
 }

@@ -19,6 +19,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="带线程切换"/>
+        <Button
+                android:id="@+id/rx_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="rxClickMap"
+                android:text="rx_map"/>
+        <Button
+                android:id="@+id/rx_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="rxClickFilter"
+                android:text="rx_filter"/>
+        <Button
+                android:id="@+id/rx_flat_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="rxClickFlatMap"
+                android:text="rx_flat_map"/>
+        <Button
+                android:id="@+id/rx_zip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="rxClickZip"
+                android:text="rx_zip"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

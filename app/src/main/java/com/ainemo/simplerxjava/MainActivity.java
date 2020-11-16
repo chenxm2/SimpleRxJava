@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ainemo.simplerxjava.src.Emitter;
+import com.ainemo.simplerxjava.src.Function;
 import com.ainemo.simplerxjava.src.Observable;
 import com.ainemo.simplerxjava.src.ObservableOnSubscribe;
 import com.ainemo.simplerxjava.src.Observer;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleNoChangeThreadButtonClicked() {
-        Observable.create(new ObservableOnSubscribe<String >() {
+        Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull Emitter<String> emitter) {
                 RxLogger.logger.info("subscribe thread = " + Thread.currentThread().getName());
@@ -86,5 +87,48 @@ public class MainActivity extends AppCompatActivity {
                 RxLogger.logger.info("final onNext = " + var);
             }
         });
+    }
+
+    public void rxClickMap(View view) {
+        Observable.create(new ObservableOnSubscribe<String>() {
+
+            @Override
+            public void subscribe(@NonNull Emitter<String> emitter) {
+                RxLogger.logger.info("final subscribe = ");
+                emitter.onNext("你猜");
+            }
+        }).map(new Function<String, Integer>() {
+
+            @Override
+            public Integer apply(@NonNull String s) throws Exception {
+                RxLogger.logger.info("final apply = " + s);
+                return 1;
+            }
+        }).subscribe(new Observer<Integer>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onNext(Integer var) {
+                RxLogger.logger.info("final onNext = " + var);
+            }
+        });
+    }
+
+    public void rxClickFilter(View view) {
+    }
+
+    public void rxClickFlatMap(View view) {
+    }
+
+    public void rxClickZip(View view) {
     }
 }
