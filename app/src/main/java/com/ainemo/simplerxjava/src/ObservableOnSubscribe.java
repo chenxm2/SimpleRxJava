@@ -9,5 +9,5 @@ public interface ObservableOnSubscribe<T> {
      * @param emitter the safe emitter instance, never null
      * @throws Exception on error
      */
-    void subscribe(@NonNull Emitter<T> emitter);
+    void subscribe(@NonNull Emitter<? super T> emitter);
 }

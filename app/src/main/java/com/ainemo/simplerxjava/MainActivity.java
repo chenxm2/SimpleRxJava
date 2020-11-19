@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.ainemo.simplerxjava.src.BiFunction;
 import com.ainemo.simplerxjava.src.Emitter;
+import com.ainemo.simplerxjava.src.Function;
 import com.ainemo.simplerxjava.src.Observable;
 import com.ainemo.simplerxjava.src.ObservableOnSubscribe;
 import com.ainemo.simplerxjava.src.Observer;
@@ -33,16 +35,25 @@ public class MainActivity extends AppCompatActivity {
                 handleChangeThreadButtonClicked();
             }
         });
+
+        findViewById(R.id.bt_zip).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleZipClicked();
+            }
+        });
+
+
     }
 
     private void handleNoChangeThreadButtonClicked() {
         Observable.create(new ObservableOnSubscribe<String >() {
             @Override
-            public void subscribe(@NonNull Emitter<String> emitter) {
+            public void subscribe(@NonNull Emitter<? super String> emitter) {
                 RxLogger.logger.info("subscribe thread = " + Thread.currentThread().getName());
                 emitter.onNext("No Change Thread");
-
             }
+
         }).subscribe(new Observer<String>() {
             @Override
             public void onCompleted() {
@@ -65,10 +76,12 @@ public class MainActivity extends AppCompatActivity {
     private void handleChangeThreadButtonClicked() {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void subscribe(@NonNull Emitter<String> emitter) {
+            public void subscribe(@NonNull Emitter<? super String> emitter) {
                 RxLogger.logger.info("subscribe thread = " + Thread.currentThread().getName());
                 emitter.onNext("Change Thread");
             }
+
+
         }).subscribeOn(Schedulers.io()).observerOn(Schedulers.main()).subscribe(new Observer<String>() {
             @Override
             public void onCompleted() {
@@ -83,6 +96,47 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNext(String var) {
                 RxLogger.logger.info("final Observer thread = " + Thread.currentThread().getName());
+                RxLogger.logger.info("final onNext = " + var);
+            }
+        });
+    }
+
+    private void handleZipClicked() {
+        Observable<String> observableOne =  Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull Emitter<? super String> emitter) {
+                emitter.onNext("one");
+            }
+
+        });
+        Observable<String> observableTwo = Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull Emitter<? super String> emitter) {
+                emitter.onNext("two");
+            }
+
+        });
+        Observable.zip(observableOne, observableTwo, new BiFunction<String, String, String>() {
+                    @NonNull
+                    @Override
+                    public String apply(@NonNull String stringOne, @NonNull String stringTwo) throws Exception {
+                        return stringOne + stringTwo;
+                    }
+                }, true
+
+        ).subscribeOn(Schedulers.io()).observerOn(Schedulers.main()).subscribe(new Observer<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onNext(String var) {
                 RxLogger.logger.info("final onNext = " + var);
             }
         });
