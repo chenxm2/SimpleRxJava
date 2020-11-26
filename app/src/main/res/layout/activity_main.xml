@@ -19,6 +19,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="带线程切换"/>
+
+        <Button
+            android:id="@+id/from_array"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fromarray操作符"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.ainemo.simplerxjava.src;
 
+import androidx.annotation.NonNull;
+
 public abstract class Observable<T> {
 
     protected Observable() {
@@ -23,4 +25,12 @@ public abstract class Observable<T> {
     public final Observable<? extends T> observerOn(Scheduler scheduler) {
         return new ObservableObserveOn<T>(this, scheduler);
     }
+
+    @NonNull
+    public static <T> Observable<T> fromArray(T... items) {
+        return new ObservableFromArray<T>(items);
+    }
+
+
+
 }

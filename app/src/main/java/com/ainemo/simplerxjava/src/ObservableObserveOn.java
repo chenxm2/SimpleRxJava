@@ -1,5 +1,7 @@
 package com.ainemo.simplerxjava.src;
 
+import androidx.annotation.NonNull;
+
 public class ObservableObserveOn<T> extends Observable<T> {
     final Scheduler scheduler;
     private Observable<T> source;
@@ -45,6 +47,11 @@ public class ObservableObserveOn<T> extends Observable<T> {
                     downstream.onNext(var);
                 }
             });
+        }
+
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+
         }
     }
 }

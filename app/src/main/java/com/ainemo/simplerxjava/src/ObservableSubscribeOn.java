@@ -1,5 +1,7 @@
 package com.ainemo.simplerxjava.src;
 
+import androidx.annotation.NonNull;
+
 public class ObservableSubscribeOn<T> extends Observable<T> {
     private Scheduler scheduler;
     private Observable<T> source;
@@ -45,6 +47,11 @@ public class ObservableSubscribeOn<T> extends Observable<T> {
         public void onNext(final T var) {
             RxLogger.logger.info("SubscribeOnObserver onNext");
             downstream.onNext(var);
+        }
+
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+
         }
     }
 }
