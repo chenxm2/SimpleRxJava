@@ -10,6 +10,8 @@ public interface Emitter<T> {
      */
     void onNext(@NonNull T value);
 
+    // main
+
     /**
      * Signal a Throwable exception.
      * @param error the Throwable to signal, not null
